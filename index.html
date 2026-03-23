@@ -8,23 +8,23 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --bg: #f0f4f8;
-      --card-bg: #ffffff;
-      --primary: #2563eb;
-      --primary-light: #dbeafe;
-      --correct: #16a34a;
-      --correct-light: #dcfce7;
-      --wrong: #dc2626;
-      --wrong-light: #fee2e2;
-      --partial: #f59e0b;
-      --partial-light: #fef3c7;
-      --tip-bg: #eff6ff;
-      --tip-border: #93c5fd;
-      --text: #1e293b;
-      --text-light: #64748b;
-      --border: #e2e8f0;
-      --shadow: 0 1px 3px rgba(0,0,0,0.1);
-      --shadow-lg: 0 4px 12px rgba(0,0,0,0.1);
+      --bg: #0f1419;
+      --card-bg: #1a1f2e;
+      --primary: #60a5fa;
+      --primary-light: #1e2a4a;
+      --correct: #4ade80;
+      --correct-light: #14332a;
+      --wrong: #f87171;
+      --wrong-light: #3b1a1a;
+      --partial: #fbbf24;
+      --partial-light: #332b14;
+      --tip-bg: #1a2436;
+      --tip-border: #3b6cb5;
+      --text: #e2e8f0;
+      --text-light: #94a3b8;
+      --border: #2d3748;
+      --shadow: 0 1px 3px rgba(0,0,0,0.3);
+      --shadow-lg: 0 4px 12px rgba(0,0,0,0.4);
       --radius: 12px;
       --radius-sm: 8px;
     }
@@ -171,8 +171,8 @@
     .mc-option.disabled { cursor: default; }
     .mc-option .option-letter {
       flex-shrink: 0; width: 28px; height: 28px; border-radius: 50%;
-      background: var(--bg); display: flex; align-items: center; justify-content: center;
-      font-weight: 700; font-size: 0.85rem;
+      background: var(--border); display: flex; align-items: center; justify-content: center;
+      font-weight: 700; font-size: 0.85rem; color: var(--text);
     }
     .mc-option.correct-answer .option-letter { background: var(--correct); color: white; }
     .mc-option.wrong-answer .option-letter { background: var(--wrong); color: white; }
@@ -265,7 +265,7 @@
       z-index: 100; animation: fadeIn 0.2s ease;
     }
     .confirm-box {
-      background: white; border-radius: var(--radius); padding: 24px; max-width: 360px;
+      background: var(--card-bg); border-radius: var(--radius); padding: 24px; max-width: 360px;
       margin: 16px; box-shadow: var(--shadow-lg); text-align: center;
     }
     .confirm-box h3 { margin-bottom: 8px; }
@@ -347,17 +347,48 @@
       } catch (e) {}
     }
 
-    function recordAnswer(questionId, correct) {
+    function recordAnswer(questionId, correct, details) {
       const progress = loadProgress();
       if (!progress.questions[questionId]) {
-        progress.questions[questionId] = { attempts: 0, correct: 0, lastSeen: null };
+        progress.questions[questionId] = { attempts: 0, correct: 0, lastSeen: null, history: [] };
       }
-      progress.questions[questionId].attempts++;
-      if (correct) progress.questions[questionId].correct++;
-      progress.questions[questionId].lastSeen = new Date().toISOString();
+      const qp = progress.questions[questionId];
+      qp.attempts++;
+      if (correct) qp.correct++;
+      qp.lastSeen = new Date().toISOString();
+      // Save detailed history for later analysis (which answer was chosen, etc.)
+      qp.history.push({
+        date: new Date().toISOString(),
+        correct: correct,
+        ...(details || {})
+      });
+      // Keep last 10 attempts per question to avoid unbounded growth
+      if (qp.history.length > 10) qp.history = qp.history.slice(-10);
       progress.lastStudied = new Date().toISOString();
       progress.sessions.totalItems++;
+      if (!progress.flagged) progress.flagged = [];
       saveProgress(progress);
+    }
+
+    function flagQuestion(questionId) {
+      const progress = loadProgress();
+      if (!progress.flagged) progress.flagged = [];
+      if (!progress.flagged.includes(questionId)) {
+        progress.flagged.push(questionId);
+        saveProgress(progress);
+      }
+    }
+
+    function unflagQuestion(questionId) {
+      const progress = loadProgress();
+      if (!progress.flagged) return;
+      progress.flagged = progress.flagged.filter(id => id !== questionId);
+      saveProgress(progress);
+    }
+
+    function isFlagged(questionId) {
+      const progress = loadProgress();
+      return (progress.flagged || []).includes(questionId);
     }
 
     function resetProgress() {
@@ -547,6 +578,11 @@
       else if (q.type === "mc") content = renderMC(q);
       else if (q.type === "scenario") content = renderScenario(q);
 
+      const flagged = isFlagged(q.id);
+      const flagBtn = `<div style="text-align:center;margin-top:12px">
+        <a data-action="${flagged ? 'unflag-question' : 'flag-question'}" data-qid="${q.id}" style="cursor:pointer;font-size:0.8rem;color:${flagged ? 'var(--wrong)' : 'var(--text-light)'}">${flagged ? 'Flagged for review' : 'Flag for review'}</a>
+      </div>`;
+
       return `<div class="screen">
         <div class="session-bar">
           <span>${modeLabel} #${state.itemsThisSession + 1}</span>
@@ -554,6 +590,7 @@
           <a data-action="end-session" style="cursor:pointer;color:var(--text-light);font-size:0.85rem">End</a>
         </div>
         ${content}
+        ${flagBtn}
       </div>`;
     }
 
@@ -843,7 +880,7 @@
           state.mcSubmitted = true;
           const q = state.currentQuestion;
           const correct = state.mcSelected === q.answer;
-          recordAnswer(q.id, correct);
+          recordAnswer(q.id, correct, { selected: state.mcSelected, correctAnswer: q.answer });
           if (correct) { state.correctThisBatch++; state.sessionCorrect++; }
           else { state.wrongThisBatch++; state.sessionWrong++; }
           state.seenThisSession.push(q.id);
@@ -855,7 +892,8 @@
           const q = state.currentQuestion;
           const val = parseFloat(target.dataset.correct);
           const correct = val >= 1;
-          recordAnswer(q.id, correct);
+          const details = { type: q.type, selfRating: val };
+          recordAnswer(q.id, correct, details);
           if (val >= 1) { state.correctThisBatch++; state.sessionCorrect++; }
           else { state.wrongThisBatch++; state.sessionWrong++; }
           state.seenThisSession.push(q.id);
@@ -935,6 +973,16 @@
           render();
           break;
 
+        case "flag-question":
+          flagQuestion(target.dataset.qid);
+          render();
+          break;
+
+        case "unflag-question":
+          unflagQuestion(target.dataset.qid);
+          render();
+          break;
+
         case "restart-missed":
           state.seenThisSession = [];
           state.itemsThisBatch = 0;
@@ -1010,6 +1058,7 @@
     // INIT
     // ============================================================
     async function init() {
+      // Try fetch first (works on http://, fails on file://)
       try {
         const res = await fetch("./questions.json");
         if (!res.ok) throw new Error("Failed to load");
@@ -1017,7 +1066,32 @@
         questionBank = data.questions || [];
         tips = data.tips || [];
         state.screen = "menu";
+        render();
+        return;
       } catch (e) {
+        // fetch failed — try loading via dynamic script tag (works on file://)
+      }
+
+      // Fallback: load questions.json as JSONP-style via script tag
+      // We create a small helper: questions.json is pure JSON, so we wrap it
+      try {
+        const data = await new Promise((resolve, reject) => {
+          const xhr = new XMLHttpRequest();
+          xhr.open("GET", "./questions.json", true);
+          xhr.onload = function () {
+            if (xhr.status === 200 || xhr.status === 0) {
+              resolve(JSON.parse(xhr.responseText));
+            } else {
+              reject(new Error("XHR failed"));
+            }
+          };
+          xhr.onerror = function () { reject(new Error("XHR error")); };
+          xhr.send();
+        });
+        questionBank = data.questions || [];
+        tips = data.tips || [];
+        state.screen = "menu";
+      } catch (e2) {
         state.screen = "error";
       }
       render();
