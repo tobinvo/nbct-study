@@ -1,0 +1,1030 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NBCT Study Tool — MC Generalist Component 1</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #f0f4f8;
+      --card-bg: #ffffff;
+      --primary: #2563eb;
+      --primary-light: #dbeafe;
+      --correct: #16a34a;
+      --correct-light: #dcfce7;
+      --wrong: #dc2626;
+      --wrong-light: #fee2e2;
+      --partial: #f59e0b;
+      --partial-light: #fef3c7;
+      --tip-bg: #eff6ff;
+      --tip-border: #93c5fd;
+      --text: #1e293b;
+      --text-light: #64748b;
+      --border: #e2e8f0;
+      --shadow: 0 1px 3px rgba(0,0,0,0.1);
+      --shadow-lg: 0 4px 12px rgba(0,0,0,0.1);
+      --radius: 12px;
+      --radius-sm: 8px;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    #app {
+      max-width: 640px;
+      margin: 0 auto;
+      padding: 20px 16px;
+      min-height: 100vh;
+    }
+
+    .screen { animation: fadeIn 0.3s ease; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+    /* Header */
+    .header { text-align: center; margin-bottom: 32px; }
+    .header h1 { font-size: 1.5rem; font-weight: 700; color: var(--primary); margin-bottom: 4px; }
+    .header p { font-size: 0.9rem; color: var(--text-light); }
+
+    /* Cards */
+    .card {
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 24px;
+      margin-bottom: 16px;
+    }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 12px 24px;
+      border: none;
+      border-radius: var(--radius-sm);
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      text-decoration: none;
+      gap: 8px;
+    }
+    .btn:hover { transform: translateY(-1px); box-shadow: var(--shadow-lg); }
+    .btn:active { transform: translateY(0); }
+    .btn-primary { background: var(--primary); color: white; }
+    .btn-correct { background: var(--correct); color: white; }
+    .btn-wrong { background: var(--wrong); color: white; }
+    .btn-partial { background: var(--partial); color: white; }
+    .btn-outline { background: transparent; border: 2px solid var(--border); color: var(--text); }
+    .btn-outline:hover { border-color: var(--primary); color: var(--primary); }
+    .btn-block { display: flex; width: 100%; }
+    .btn-lg { padding: 16px 32px; font-size: 1.1rem; }
+    .btn-sm { padding: 8px 16px; font-size: 0.85rem; }
+
+    /* Mode buttons */
+    .mode-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 24px; }
+    .mode-btn {
+      background: var(--card-bg);
+      border: 2px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px 16px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .mode-btn:hover { border-color: var(--primary); box-shadow: var(--shadow-lg); }
+    .mode-btn .mode-icon { font-size: 1.8rem; margin-bottom: 8px; display: block; }
+    .mode-btn .mode-label { font-weight: 600; font-size: 0.95rem; }
+    .mode-btn .mode-desc { font-size: 0.8rem; color: var(--text-light); margin-top: 4px; }
+
+    /* Domain chips */
+    .domain-section { margin-bottom: 24px; }
+    .domain-section label { display: block; font-weight: 600; font-size: 0.85rem; color: var(--text-light); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 8px; }
+    .chip-grid { display: flex; flex-wrap: wrap; gap: 8px; }
+    .chip {
+      padding: 6px 14px;
+      border-radius: 20px;
+      border: 2px solid var(--border);
+      font-size: 0.85rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s;
+      user-select: none;
+    }
+    .chip.active { background: var(--primary); color: white; border-color: var(--primary); }
+    .chip:not(.active):hover { border-color: var(--primary); color: var(--primary); }
+
+    /* Footer links */
+    .footer-links { display: flex; justify-content: center; gap: 24px; margin-top: 16px; }
+    .footer-links a { font-size: 0.85rem; color: var(--text-light); cursor: pointer; text-decoration: none; }
+    .footer-links a:hover { color: var(--primary); }
+
+    /* Session top bar */
+    .session-bar {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 8px 0; margin-bottom: 16px; font-size: 0.85rem; color: var(--text-light);
+    }
+    .session-bar .domain-badge {
+      display: inline-block; padding: 2px 10px; border-radius: 12px;
+      background: var(--primary-light); color: var(--primary); font-weight: 600; font-size: 0.8rem;
+    }
+
+    /* Flashcard */
+    .flashcard-container { perspective: 1000px; margin-bottom: 16px; }
+    .flashcard {
+      position: relative; width: 100%; min-height: 200px;
+      transition: transform 0.6s; transform-style: preserve-3d; cursor: pointer;
+    }
+    .flashcard.flipped { transform: rotateY(180deg); }
+    .flashcard-face {
+      position: absolute; top: 0; left: 0; width: 100%; min-height: 200px;
+      backface-visibility: hidden; -webkit-backface-visibility: hidden;
+      background: var(--card-bg); border-radius: var(--radius); box-shadow: var(--shadow);
+      padding: 32px 24px; display: flex; align-items: center; justify-content: center;
+      text-align: center; font-size: 1.1rem;
+    }
+    .flashcard-back { transform: rotateY(180deg); }
+    .flashcard-label {
+      position: absolute; top: 12px; left: 16px;
+      font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em;
+      color: var(--text-light);
+    }
+
+    /* MC options */
+    .mc-stem { font-size: 1.05rem; line-height: 1.7; margin-bottom: 20px; }
+    .mc-option {
+      display: flex; align-items: flex-start; gap: 12px;
+      padding: 14px 16px; border: 2px solid var(--border); border-radius: var(--radius-sm);
+      margin-bottom: 10px; cursor: pointer; transition: all 0.2s;
+    }
+    .mc-option:hover:not(.disabled) { border-color: var(--primary); background: var(--primary-light); }
+    .mc-option.selected { border-color: var(--primary); background: var(--primary-light); }
+    .mc-option.correct-answer { border-color: var(--correct); background: var(--correct-light); }
+    .mc-option.wrong-answer { border-color: var(--wrong); background: var(--wrong-light); }
+    .mc-option.disabled { cursor: default; }
+    .mc-option .option-letter {
+      flex-shrink: 0; width: 28px; height: 28px; border-radius: 50%;
+      background: var(--bg); display: flex; align-items: center; justify-content: center;
+      font-weight: 700; font-size: 0.85rem;
+    }
+    .mc-option.correct-answer .option-letter { background: var(--correct); color: white; }
+    .mc-option.wrong-answer .option-letter { background: var(--wrong); color: white; }
+    .mc-explanation {
+      margin-top: 6px; font-size: 0.85rem; color: var(--text-light);
+      padding-left: 40px; display: none;
+    }
+    .mc-explanation.visible { display: block; }
+
+    /* Scenario */
+    .vignette {
+      background: var(--bg); border-left: 4px solid var(--primary);
+      padding: 16px 20px; border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+      margin-bottom: 16px; font-size: 0.95rem; line-height: 1.7;
+    }
+    .scenario-question { font-weight: 600; margin-bottom: 16px; font-size: 1.05rem; }
+    .exemplar { margin-top: 16px; }
+    .exemplar h4 { font-size: 0.9rem; color: var(--primary); margin-bottom: 8px; }
+    .exemplar p { font-size: 0.95rem; line-height: 1.7; margin-bottom: 12px; }
+    .key-points { list-style: none; padding: 0; }
+    .key-points li {
+      padding: 8px 12px; margin-bottom: 6px; background: var(--bg);
+      border-radius: var(--radius-sm); font-size: 0.9rem;
+      display: flex; align-items: flex-start; gap: 8px;
+    }
+    .key-points li::before { content: "\2713"; color: var(--correct); font-weight: 700; flex-shrink: 0; }
+
+    /* Tip card */
+    .tip-card {
+      background: var(--tip-bg); border: 2px solid var(--tip-border);
+      border-radius: var(--radius); padding: 20px 24px; margin-bottom: 16px; text-align: center;
+    }
+    .tip-card .tip-icon { font-size: 1.5rem; margin-bottom: 8px; display: block; }
+    .tip-card .tip-label { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--primary); margin-bottom: 8px; }
+    .tip-card .tip-text { font-size: 0.95rem; line-height: 1.6; }
+
+    /* Summary card */
+    .summary-card { text-align: center; }
+    .summary-card h3 { margin-bottom: 12px; }
+    .summary-stats { display: flex; justify-content: center; gap: 24px; margin: 16px 0; }
+    .summary-stat .stat-num { font-size: 1.8rem; font-weight: 700; }
+    .summary-stat .stat-label { font-size: 0.8rem; color: var(--text-light); }
+    .stat-correct .stat-num { color: var(--correct); }
+    .stat-wrong .stat-num { color: var(--wrong); }
+
+    /* Pause card */
+    .pause-card { text-align: center; }
+    .pause-card h3 { margin-bottom: 16px; }
+    .pause-actions { display: flex; flex-direction: column; gap: 10px; }
+
+    /* Progress dashboard */
+    .progress-section { margin-bottom: 24px; }
+    .progress-section h3 { font-size: 1rem; font-weight: 700; margin-bottom: 12px; }
+    .stat-row {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 10px 0; border-bottom: 1px solid var(--border);
+    }
+    .stat-row:last-child { border-bottom: none; }
+    .bar-container { flex: 1; margin: 0 16px; height: 8px; background: var(--bg); border-radius: 4px; overflow: hidden; }
+    .bar-fill { height: 100%; border-radius: 4px; transition: width 0.5s ease; }
+    .bar-fill.good { background: var(--correct); }
+    .bar-fill.ok { background: var(--partial); }
+    .bar-fill.low { background: var(--wrong); }
+    .bar-fill.empty { background: var(--border); }
+    .stat-label-left { font-size: 0.9rem; font-weight: 500; min-width: 120px; }
+    .stat-pct { font-size: 0.85rem; font-weight: 600; color: var(--text-light); min-width: 50px; text-align: right; }
+
+    .big-stat { text-align: center; margin-bottom: 20px; }
+    .big-stat .big-num { font-size: 2.5rem; font-weight: 700; color: var(--primary); }
+    .big-stat .big-label { font-size: 0.85rem; color: var(--text-light); }
+
+    .btn-row { display: flex; gap: 10px; margin-top: 12px; }
+    .btn-row .btn { flex: 1; }
+
+    /* Error */
+    .error-card { background: var(--wrong-light); border: 2px solid var(--wrong); text-align: center; }
+    .error-card h3 { color: var(--wrong); margin-bottom: 8px; }
+
+    /* Responsive */
+    @media (max-width: 480px) {
+      .mode-grid { grid-template-columns: 1fr; }
+      .summary-stats { gap: 16px; }
+      .stat-label-left { min-width: 80px; font-size: 0.8rem; }
+    }
+
+    /* Confirm dialog */
+    .confirm-overlay {
+      position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center;
+      z-index: 100; animation: fadeIn 0.2s ease;
+    }
+    .confirm-box {
+      background: white; border-radius: var(--radius); padding: 24px; max-width: 360px;
+      margin: 16px; box-shadow: var(--shadow-lg); text-align: center;
+    }
+    .confirm-box h3 { margin-bottom: 8px; }
+    .confirm-box p { font-size: 0.9rem; color: var(--text-light); margin-bottom: 20px; }
+  </style>
+</head>
+<body>
+  <div id="app"></div>
+
+  <script>
+    // ============================================================
+    // STATE
+    // ============================================================
+    const DOMAIN_LABELS = {
+      ela: "ELA",
+      math: "Math",
+      science: "Science",
+      "social-studies": "Social Studies",
+      development: "Child Development",
+      dei: "DEI",
+      family: "Family & Community"
+    };
+
+    const MODE_INFO = {
+      flashcard: { icon: "\uD83D\uDCC7", label: "Flashcards", desc: "Flip cards to test your recall" },
+      mc: { icon: "\u2753", label: "Multiple Choice", desc: "Exam-style questions with rationale" },
+      scenario: { icon: "\uD83C\uDFEB", label: "Scenarios", desc: "Classroom vignettes & best practice" },
+      surprise: { icon: "\uD83C\uDFB2", label: "Surprise Me", desc: "Random mix of all formats" }
+    };
+
+    let questionBank = null;
+    let tips = [];
+
+    let state = {
+      screen: "loading",
+      activeDomains: Object.keys(DOMAIN_LABELS),
+      mode: null,
+      // Session state
+      currentQuestion: null,
+      flashcardFlipped: false,
+      mcSelected: null,
+      mcSubmitted: false,
+      scenarioRevealed: false,
+      itemsThisBatch: 0,
+      itemsThisSession: 0,
+      tipCounter: 0,
+      batchSize: randomBatchSize(),
+      correctThisBatch: 0,
+      wrongThisBatch: 0,
+      domainsThisBatch: [],
+      sessionCorrect: 0,
+      sessionWrong: 0,
+      showConfirm: false,
+      pendingAction: null,
+      seenThisSession: []
+    };
+
+    function randomBatchSize() { return Math.random() < 0.5 ? 2 : 3; }
+    function randomTipInterval() { return 8 + Math.floor(Math.random() * 3); }
+
+    let tipInterval = randomTipInterval();
+
+    // ============================================================
+    // PROGRESS (localStorage)
+    // ============================================================
+    const STORAGE_KEY = "nbct-study-progress";
+
+    function loadProgress() {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if (raw) return JSON.parse(raw);
+      } catch (e) {}
+      return { version: 1, lastStudied: null, questions: {}, sessions: { total: 0, totalItems: 0 } };
+    }
+
+    function saveProgress(progress) {
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(progress));
+      } catch (e) {}
+    }
+
+    function recordAnswer(questionId, correct) {
+      const progress = loadProgress();
+      if (!progress.questions[questionId]) {
+        progress.questions[questionId] = { attempts: 0, correct: 0, lastSeen: null };
+      }
+      progress.questions[questionId].attempts++;
+      if (correct) progress.questions[questionId].correct++;
+      progress.questions[questionId].lastSeen = new Date().toISOString();
+      progress.lastStudied = new Date().toISOString();
+      progress.sessions.totalItems++;
+      saveProgress(progress);
+    }
+
+    function resetProgress() {
+      try { localStorage.removeItem(STORAGE_KEY); } catch (e) {}
+    }
+
+    function getProgressStats() {
+      const progress = loadProgress();
+      if (!questionBank) return null;
+
+      const stats = {
+        total: 0, correct: 0,
+        byDomain: {},
+        byMode: {},
+        lastStudied: progress.lastStudied
+      };
+
+      for (const d of Object.keys(DOMAIN_LABELS)) {
+        stats.byDomain[d] = { total: 0, correct: 0 };
+      }
+      for (const m of ["flashcard", "mc", "scenario"]) {
+        stats.byMode[m] = { total: 0, correct: 0 };
+      }
+
+      for (const [qid, data] of Object.entries(progress.questions)) {
+        const q = questionBank.find(x => x.id === qid);
+        if (!q) continue;
+        stats.total += data.attempts;
+        stats.correct += data.correct;
+        if (stats.byDomain[q.domain]) {
+          stats.byDomain[q.domain].total += data.attempts;
+          stats.byDomain[q.domain].correct += data.correct;
+        }
+        if (stats.byMode[q.type]) {
+          stats.byMode[q.type].total += data.attempts;
+          stats.byMode[q.type].correct += data.correct;
+        }
+      }
+
+      return stats;
+    }
+
+    // ============================================================
+    // QUESTION ENGINE
+    // ============================================================
+    function pickQuestion() {
+      if (!questionBank) return null;
+
+      const mode = state.mode === "surprise"
+        ? ["flashcard", "mc", "scenario"][Math.floor(Math.random() * 3)]
+        : state.mode;
+
+      let pool = questionBank.filter(q =>
+        q.type === mode && state.activeDomains.includes(q.domain)
+      );
+
+      if (pool.length === 0) return null;
+
+      // Filter out questions seen this session if possible
+      const unseen = pool.filter(q => !state.seenThisSession.includes(q.id));
+      if (unseen.length > 0) pool = unseen;
+
+      // Weighted random selection
+      const progress = loadProgress();
+      const weighted = pool.map(q => {
+        const p = progress.questions[q.id];
+        if (!p) return { q, weight: 3 }; // never seen
+        const rate = p.correct / p.attempts;
+        return { q, weight: rate < 0.5 ? 2 : 1 };
+      });
+
+      const totalWeight = weighted.reduce((s, w) => s + w.weight, 0);
+      let rand = Math.random() * totalWeight;
+      for (const w of weighted) {
+        rand -= w.weight;
+        if (rand <= 0) return w.q;
+      }
+      return weighted[weighted.length - 1].q;
+    }
+
+    function pickTip() {
+      if (!tips || tips.length === 0) return null;
+      return tips[Math.floor(Math.random() * tips.length)];
+    }
+
+    // ============================================================
+    // RENDERING
+    // ============================================================
+    function render() {
+      const app = document.getElementById("app");
+      let html = "";
+
+      switch (state.screen) {
+        case "loading": html = renderLoading(); break;
+        case "error": html = renderError(); break;
+        case "menu": html = renderMenu(); break;
+        case "question": html = renderQuestion(); break;
+        case "tip": html = renderTip(); break;
+        case "pause": html = renderPause(); break;
+        case "summary": html = renderSummary(); break;
+        case "progress": html = renderProgress(); break;
+        case "done": html = renderDone(); break;
+      }
+
+      if (state.showConfirm) {
+        html += renderConfirm();
+      }
+
+      app.innerHTML = html;
+
+      // After render, set flashcard height to match content
+      if (state.screen === "question" && state.currentQuestion && state.currentQuestion.type === "flashcard") {
+        requestAnimationFrame(adjustFlashcardHeight);
+      }
+    }
+
+    function adjustFlashcardHeight() {
+      const card = document.querySelector(".flashcard");
+      const front = document.querySelector(".flashcard-front");
+      const back = document.querySelector(".flashcard-back");
+      if (card && front && back) {
+        const h = Math.max(front.scrollHeight, back.scrollHeight);
+        card.style.height = h + "px";
+        front.style.minHeight = h + "px";
+        back.style.minHeight = h + "px";
+      }
+    }
+
+    function renderLoading() {
+      return '<div class="screen"><div class="card" style="text-align:center;padding:40px"><p>Loading questions...</p></div></div>';
+    }
+
+    function renderError() {
+      return `<div class="screen">
+        <div class="header"><h1>NBCT Study Tool</h1></div>
+        <div class="card error-card">
+          <h3>Couldn't load questions</h3>
+          <p>Make sure <strong>questions.json</strong> is in the same folder as this HTML file, then refresh the page.</p>
+        </div>
+      </div>`;
+    }
+
+    function renderMenu() {
+      const domainChips = Object.entries(DOMAIN_LABELS).map(([key, label]) => {
+        const active = state.activeDomains.includes(key) ? "active" : "";
+        return `<span class="chip ${active}" data-action="toggle-domain" data-domain="${key}">${label}</span>`;
+      }).join("");
+
+      const modeButtons = Object.entries(MODE_INFO).map(([key, info]) => {
+        return `<div class="mode-btn" data-action="start-mode" data-mode="${key}">
+          <span class="mode-icon">${info.icon}</span>
+          <div class="mode-label">${info.label}</div>
+          <div class="mode-desc">${info.desc}</div>
+        </div>`;
+      }).join("");
+
+      const canStart = state.activeDomains.length > 0;
+
+      return `<div class="screen">
+        <div class="header">
+          <h1>NBCT Study Tool</h1>
+          <p>Middle Childhood Generalist — Component 1</p>
+        </div>
+        <div class="domain-section">
+          <label>Focus Areas</label>
+          <div class="chip-grid">${domainChips}</div>
+        </div>
+        ${canStart ? "" : '<p style="color:var(--wrong);font-size:0.85rem;margin-bottom:12px">Select at least one domain to start</p>'}
+        <div class="mode-grid" ${canStart ? "" : 'style="opacity:0.5;pointer-events:none"'}>
+          ${modeButtons}
+        </div>
+        <div class="footer-links">
+          <a data-action="show-progress">View Progress</a>
+        </div>
+      </div>`;
+    }
+
+    function renderQuestion() {
+      const q = state.currentQuestion;
+      if (!q) return renderDone();
+
+      const domainLabel = DOMAIN_LABELS[q.domain] || q.domain;
+      const modeLabel = MODE_INFO[q.type] ? MODE_INFO[q.type].label : q.type;
+
+      let content = "";
+      if (q.type === "flashcard") content = renderFlashcard(q);
+      else if (q.type === "mc") content = renderMC(q);
+      else if (q.type === "scenario") content = renderScenario(q);
+
+      return `<div class="screen">
+        <div class="session-bar">
+          <span>${modeLabel} #${state.itemsThisSession + 1}</span>
+          <span class="domain-badge">${domainLabel}</span>
+          <a data-action="end-session" style="cursor:pointer;color:var(--text-light);font-size:0.85rem">End</a>
+        </div>
+        ${content}
+      </div>`;
+    }
+
+    function renderFlashcard(q) {
+      const flipped = state.flashcardFlipped ? "flipped" : "";
+      return `<div class="flashcard-container">
+        <div class="flashcard ${flipped}" data-action="flip-card">
+          <div class="flashcard-face flashcard-front">
+            <span class="flashcard-label">Term / Concept</span>
+            <div>${q.front}</div>
+          </div>
+          <div class="flashcard-face flashcard-back">
+            <span class="flashcard-label">Definition</span>
+            <div style="font-size:0.95rem">${q.back}</div>
+          </div>
+        </div>
+      </div>
+      ${state.flashcardFlipped
+        ? `<div class="btn-row">
+            <button class="btn btn-correct" data-action="answer" data-correct="1">Got it</button>
+            <button class="btn btn-wrong" data-action="answer" data-correct="0">Missed it</button>
+          </div>`
+        : '<p style="text-align:center;color:var(--text-light);font-size:0.85rem;margin-top:8px">Click the card to flip</p>'
+      }`;
+    }
+
+    function renderMC(q) {
+      const options = q.choices.map(c => {
+        let cls = "mc-option";
+        let explCls = "mc-explanation";
+        if (state.mcSubmitted) {
+          cls += " disabled";
+          if (c.label === q.answer) cls += " correct-answer";
+          else if (c.label === state.mcSelected) cls += " wrong-answer";
+          explCls += " visible";
+        } else {
+          if (c.label === state.mcSelected) cls += " selected";
+        }
+        const explanation = state.mcSubmitted && q.explanations && q.explanations[c.label]
+          ? `<div class="${explCls}">${q.explanations[c.label]}</div>` : "";
+        return `<div class="${cls}" data-action="${state.mcSubmitted ? "" : "select-mc"}" data-label="${c.label}">
+          <span class="option-letter">${c.label}</span>
+          <div style="flex:1"><div>${c.text}</div>${explanation}</div>
+        </div>`;
+      }).join("");
+
+      let btn = "";
+      if (!state.mcSubmitted && state.mcSelected) {
+        btn = '<button class="btn btn-primary btn-block" data-action="submit-mc" style="margin-top:8px">Submit Answer</button>';
+      } else if (state.mcSubmitted) {
+        btn = '<button class="btn btn-primary btn-block" data-action="next-question" style="margin-top:8px">Next</button>';
+      }
+
+      return `<div class="card">
+        <div class="mc-stem">${q.stem}</div>
+        ${options}
+        ${btn}
+      </div>`;
+    }
+
+    function renderScenario(q) {
+      let answerSection = "";
+      if (state.scenarioRevealed) {
+        const keyPts = q.keyPoints
+          ? q.keyPoints.map(k => `<li>${k}</li>`).join("")
+          : "";
+        answerSection = `<div class="exemplar">
+          <h4>Model Answer</h4>
+          <p>${q.exemplar}</p>
+          ${keyPts ? `<h4 style="margin-top:12px">Key Points</h4><ul class="key-points">${keyPts}</ul>` : ""}
+          <p style="font-weight:600;margin-top:16px">How did you do?</p>
+          <div class="btn-row">
+            <button class="btn btn-correct" data-action="answer" data-correct="1">Nailed it</button>
+            <button class="btn btn-partial" data-action="answer" data-correct="0.5">Partially</button>
+            <button class="btn btn-wrong" data-action="answer" data-correct="0">Missed it</button>
+          </div>
+        </div>`;
+      } else {
+        answerSection = `<button class="btn btn-primary btn-block" data-action="reveal-scenario" style="margin-top:8px">Show Model Answer</button>`;
+      }
+
+      return `<div class="card">
+        <div class="vignette">${q.vignette}</div>
+        <div class="scenario-question">${q.question}</div>
+        <p style="font-size:0.85rem;color:var(--text-light);margin-bottom:12px">Think about what an accomplished teacher would do, then check the model answer.</p>
+        ${answerSection}
+      </div>`;
+    }
+
+    function renderTip() {
+      const tip = state.currentTip || "Focus on what an 'accomplished teacher' would do — that's the NBCT lens for every question.";
+      return `<div class="screen">
+        <div class="tip-card">
+          <span class="tip-icon">\uD83D\uDCA1</span>
+          <div class="tip-label">Test Tip</div>
+          <div class="tip-text">${tip}</div>
+        </div>
+        <button class="btn btn-primary btn-block" data-action="dismiss-tip">Got it!</button>
+      </div>`;
+    }
+
+    function renderPause() {
+      return `<div class="screen">
+        <div class="card pause-card">
+          <h3>Nice work!</h3>
+          <p style="color:var(--text-light);margin-bottom:20px">You've done ${state.itemsThisBatch} questions this round.</p>
+          <div class="pause-actions">
+            <button class="btn btn-primary btn-block" data-action="keep-going">Keep going</button>
+            <button class="btn btn-outline btn-block" data-action="switch-mode">Switch it up</button>
+            <button class="btn btn-outline btn-block" data-action="take-break">Take a break</button>
+          </div>
+        </div>
+      </div>`;
+    }
+
+    function renderSummary() {
+      const pct = (state.correctThisBatch + state.wrongThisBatch) > 0
+        ? Math.round(state.correctThisBatch / (state.correctThisBatch + state.wrongThisBatch) * 100)
+        : 0;
+      const domains = [...new Set(state.domainsThisBatch)].map(d => DOMAIN_LABELS[d] || d).join(", ");
+
+      const encouragement = pct >= 80 ? "You're on fire!"
+        : pct >= 60 ? "Solid progress — keep it up!"
+        : "Every question builds understanding. Keep going!";
+
+      return `<div class="screen">
+        <div class="card summary-card">
+          <h3>Session Check-in</h3>
+          <div class="summary-stats">
+            <div class="summary-stat stat-correct">
+              <div class="stat-num">${state.correctThisBatch}</div>
+              <div class="stat-label">Correct</div>
+            </div>
+            <div class="summary-stat stat-wrong">
+              <div class="stat-num">${state.wrongThisBatch}</div>
+              <div class="stat-label">Missed</div>
+            </div>
+          </div>
+          <p style="font-size:0.85rem;color:var(--text-light);margin-bottom:4px">Domains covered: ${domains || "—"}</p>
+          <p style="font-weight:600;margin-top:12px">${encouragement}</p>
+        </div>
+        <div class="pause-actions" style="margin-top:12px">
+          <button class="btn btn-primary btn-block" data-action="keep-going-after-summary">Keep going</button>
+          <button class="btn btn-outline btn-block" data-action="switch-mode">Switch it up</button>
+          <button class="btn btn-outline btn-block" data-action="take-break">Take a break</button>
+        </div>
+      </div>`;
+    }
+
+    function renderProgress() {
+      const stats = getProgressStats();
+      if (!stats) return renderMenu();
+
+      const pct = stats.total > 0 ? Math.round(stats.correct / stats.total * 100) : 0;
+      const lastDate = stats.lastStudied
+        ? new Date(stats.lastStudied).toLocaleDateString(undefined, { month: "short", day: "numeric", year: "numeric" })
+        : "Never";
+
+      const domainBars = Object.entries(DOMAIN_LABELS).map(([key, label]) => {
+        const d = stats.byDomain[key];
+        const dpct = d.total > 0 ? Math.round(d.correct / d.total * 100) : -1;
+        const barClass = dpct < 0 ? "empty" : dpct >= 70 ? "good" : dpct >= 50 ? "ok" : "low";
+        const width = dpct < 0 ? 100 : dpct;
+        return `<div class="stat-row">
+          <span class="stat-label-left">${label}</span>
+          <div class="bar-container"><div class="bar-fill ${barClass}" style="width:${width}%"></div></div>
+          <span class="stat-pct">${dpct < 0 ? "—" : dpct + "%"}</span>
+        </div>`;
+      }).join("");
+
+      const modeBars = [["flashcard", "Flashcards"], ["mc", "Multiple Choice"], ["scenario", "Scenarios"]].map(([key, label]) => {
+        const m = stats.byMode[key];
+        const mpct = m.total > 0 ? Math.round(m.correct / m.total * 100) : -1;
+        return `<div class="stat-row">
+          <span class="stat-label-left">${label}</span>
+          <span class="stat-pct">${m.total > 0 ? m.total + " attempted, " + mpct + "%" : "—"}</span>
+        </div>`;
+      }).join("");
+
+      return `<div class="screen">
+        <div class="header">
+          <h1>Your Progress</h1>
+        </div>
+        <div class="card">
+          <div class="big-stat">
+            <div class="big-num">${pct}%</div>
+            <div class="big-label">${stats.total} questions attempted</div>
+          </div>
+          <p style="text-align:center;font-size:0.85rem;color:var(--text-light)">Last studied: ${lastDate}</p>
+        </div>
+
+        <div class="progress-section">
+          <h3>By Domain</h3>
+          <div class="card" style="padding:12px 16px">${domainBars}</div>
+        </div>
+
+        <div class="progress-section">
+          <h3>By Mode</h3>
+          <div class="card" style="padding:12px 16px">${modeBars}</div>
+        </div>
+
+        <div style="margin-top:16px">
+          <button class="btn btn-primary btn-block" data-action="back-to-menu">Back to Study</button>
+          <button class="btn btn-outline btn-block" data-action="confirm-reset" style="margin-top:8px">Reset All Progress</button>
+        </div>
+      </div>`;
+    }
+
+    function renderDone() {
+      return `<div class="screen">
+        <div class="card" style="text-align:center;padding:32px">
+          <p style="font-size:1.5rem;margin-bottom:12px">\uD83C\uDF89</p>
+          <h3>You've seen all the questions!</h3>
+          <p style="color:var(--text-light);margin:12px 0">Great job working through everything. You can restart to focus on the ones you missed.</p>
+          <button class="btn btn-primary" data-action="restart-missed">Review Missed Questions</button>
+          <button class="btn btn-outline" data-action="back-to-menu" style="margin-top:8px">Back to Menu</button>
+        </div>
+      </div>`;
+    }
+
+    function renderConfirm() {
+      return `<div class="confirm-overlay" data-action="cancel-confirm">
+        <div class="confirm-box" onclick="event.stopPropagation()">
+          <h3>Reset Progress?</h3>
+          <p>This will erase all your study history. This can't be undone.</p>
+          <div class="btn-row">
+            <button class="btn btn-outline" data-action="cancel-confirm">Cancel</button>
+            <button class="btn btn-wrong" data-action="do-reset">Reset</button>
+          </div>
+        </div>
+      </div>`;
+    }
+
+    // ============================================================
+    // EVENT HANDLING
+    // ============================================================
+    document.getElementById("app").addEventListener("click", function (e) {
+      const target = e.target.closest("[data-action]");
+      if (!target) return;
+      const action = target.dataset.action;
+
+      switch (action) {
+        case "toggle-domain": {
+          const d = target.dataset.domain;
+          const idx = state.activeDomains.indexOf(d);
+          if (idx >= 0) {
+            if (state.activeDomains.length > 1) {
+              state.activeDomains = state.activeDomains.filter(x => x !== d);
+            }
+          } else {
+            state.activeDomains = [...state.activeDomains, d];
+          }
+          render();
+          break;
+        }
+
+        case "start-mode": {
+          state.mode = target.dataset.mode;
+          state.itemsThisBatch = 0;
+          state.itemsThisSession = 0;
+          state.tipCounter = 0;
+          state.batchSize = randomBatchSize();
+          state.correctThisBatch = 0;
+          state.wrongThisBatch = 0;
+          state.domainsThisBatch = [];
+          state.sessionCorrect = 0;
+          state.sessionWrong = 0;
+          state.seenThisSession = [];
+          tipInterval = randomTipInterval();
+          loadNextQuestion();
+          break;
+        }
+
+        case "flip-card":
+          state.flashcardFlipped = true;
+          render();
+          break;
+
+        case "select-mc":
+          if (!state.mcSubmitted) {
+            state.mcSelected = target.dataset.label;
+            render();
+          }
+          break;
+
+        case "submit-mc": {
+          state.mcSubmitted = true;
+          const q = state.currentQuestion;
+          const correct = state.mcSelected === q.answer;
+          recordAnswer(q.id, correct);
+          if (correct) { state.correctThisBatch++; state.sessionCorrect++; }
+          else { state.wrongThisBatch++; state.sessionWrong++; }
+          state.seenThisSession.push(q.id);
+          render();
+          break;
+        }
+
+        case "answer": {
+          const q = state.currentQuestion;
+          const val = parseFloat(target.dataset.correct);
+          const correct = val >= 1;
+          recordAnswer(q.id, correct);
+          if (val >= 1) { state.correctThisBatch++; state.sessionCorrect++; }
+          else { state.wrongThisBatch++; state.sessionWrong++; }
+          state.seenThisSession.push(q.id);
+          advanceSession();
+          break;
+        }
+
+        case "next-question":
+          advanceSession();
+          break;
+
+        case "reveal-scenario":
+          state.scenarioRevealed = true;
+          render();
+          break;
+
+        case "dismiss-tip":
+          state.tipCounter = 0;
+          tipInterval = randomTipInterval();
+          loadNextQuestion();
+          break;
+
+        case "keep-going":
+          state.itemsThisBatch = 0;
+          state.batchSize = randomBatchSize();
+          loadNextQuestion();
+          break;
+
+        case "keep-going-after-summary":
+          state.itemsThisBatch = 0;
+          state.correctThisBatch = 0;
+          state.wrongThisBatch = 0;
+          state.domainsThisBatch = [];
+          state.batchSize = randomBatchSize();
+          loadNextQuestion();
+          break;
+
+        case "switch-mode":
+          state.screen = "menu";
+          render();
+          break;
+
+        case "take-break":
+          state.screen = "progress";
+          render();
+          break;
+
+        case "end-session":
+          state.screen = "menu";
+          render();
+          break;
+
+        case "show-progress":
+          state.screen = "progress";
+          render();
+          break;
+
+        case "back-to-menu":
+          state.screen = "menu";
+          render();
+          break;
+
+        case "confirm-reset":
+          state.showConfirm = true;
+          render();
+          break;
+
+        case "cancel-confirm":
+          state.showConfirm = false;
+          render();
+          break;
+
+        case "do-reset":
+          resetProgress();
+          state.showConfirm = false;
+          state.screen = "menu";
+          render();
+          break;
+
+        case "restart-missed":
+          state.seenThisSession = [];
+          state.itemsThisBatch = 0;
+          state.itemsThisSession = 0;
+          state.tipCounter = 0;
+          state.correctThisBatch = 0;
+          state.wrongThisBatch = 0;
+          state.domainsThisBatch = [];
+          state.batchSize = randomBatchSize();
+          tipInterval = randomTipInterval();
+          loadNextQuestion();
+          break;
+      }
+    });
+
+    // ============================================================
+    // SESSION FLOW
+    // ============================================================
+    function loadNextQuestion() {
+      const q = pickQuestion();
+      if (!q) {
+        state.screen = "done";
+        render();
+        return;
+      }
+      state.currentQuestion = q;
+      state.flashcardFlipped = false;
+      state.mcSelected = null;
+      state.mcSubmitted = false;
+      state.scenarioRevealed = false;
+      state.screen = "question";
+      render();
+    }
+
+    function advanceSession() {
+      state.itemsThisBatch++;
+      state.itemsThisSession++;
+      state.tipCounter++;
+      if (state.currentQuestion) {
+        state.domainsThisBatch.push(state.currentQuestion.domain);
+      }
+
+      // Check for summary (every 5-6 items)
+      const summaryAt = 5 + Math.floor(Math.random() * 2);
+      if (state.itemsThisSession > 0 && state.itemsThisSession % summaryAt === 0) {
+        state.screen = "summary";
+        render();
+        return;
+      }
+
+      // Check for tip
+      if (state.tipCounter >= tipInterval) {
+        const tip = pickTip();
+        if (tip) {
+          state.currentTip = tip;
+          state.screen = "tip";
+          render();
+          return;
+        }
+      }
+
+      // Check for pause
+      if (state.itemsThisBatch >= state.batchSize) {
+        state.screen = "pause";
+        render();
+        return;
+      }
+
+      loadNextQuestion();
+    }
+
+    // ============================================================
+    // INIT
+    // ============================================================
+    async function init() {
+      try {
+        const res = await fetch("./questions.json");
+        if (!res.ok) throw new Error("Failed to load");
+        const data = await res.json();
+        questionBank = data.questions || [];
+        tips = data.tips || [];
+        state.screen = "menu";
+      } catch (e) {
+        state.screen = "error";
+      }
+      render();
+    }
+
+    render();
+    init();
+  </script>
+</body>
+</html>
