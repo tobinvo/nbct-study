@@ -265,6 +265,8 @@
     .error-card { background: var(--wrong-light); border: 2px solid var(--wrong); text-align: center; }
     .error-card h3 { color: var(--wrong); margin-bottom: 8px; }
 
+    .mode-grid .mode-btn:last-child:nth-child(odd) { grid-column: 1 / -1; }
+
     /* Responsive */
     @media (max-width: 480px) {
       .mode-grid { grid-template-columns: 1fr; }
@@ -307,7 +309,8 @@
       flashcard: { icon: "\uD83D\uDCC7", label: "Flashcards", desc: "Flip cards to test your recall" },
       mc: { icon: "\u2753", label: "Multiple Choice", desc: "Exam-style questions with rationale" },
       scenario: { icon: "\uD83C\uDFEB", label: "Scenarios", desc: "Classroom vignettes & best practice" },
-      surprise: { icon: "\uD83C\uDFB2", label: "Surprise Me", desc: "Random mix of all formats" }
+      surprise: { icon: "\uD83C\uDFB2", label: "Surprise Me", desc: "Random mix of all formats" },
+      weakness: { icon: "\uD83C\uDFAF", label: "Weaknesses", desc: "Focus on what you've missed" }
     };
 
     let questionBank = null;
@@ -450,8 +453,37 @@
     // ============================================================
     // QUESTION ENGINE
     // ============================================================
+    function getWeakQuestions() {
+      if (!questionBank) return [];
+      const progress = loadProgress();
+      return questionBank.filter(q => {
+        if (!state.activeDomains.includes(q.domain)) return false;
+        const p = progress.questions[q.id];
+        if (!p || p.attempts === 0) return false;
+        return (p.correct / p.attempts) < 0.7;
+      });
+    }
+
+    function getWeakDomains() {
+      const stats = getProgressStats();
+      if (!stats) return [];
+      return Object.entries(stats.byDomain)
+        .filter(([, d]) => d.total > 0 && (d.correct / d.total) < 0.7)
+        .sort((a, b) => (a[1].correct / a[1].total) - (b[1].correct / b[1].total))
+        .map(([key]) => key);
+    }
+
     function pickQuestion() {
       if (!questionBank) return null;
+
+      if (state.mode === "weakness") {
+        let pool = getWeakQuestions();
+        if (pool.length === 0) return null;
+        const unseen = pool.filter(q => !state.seenThisSession.includes(q.id));
+        if (unseen.length > 0) pool = unseen;
+        // Random pick (already filtered to weak questions, no extra weighting needed)
+        return pool[Math.floor(Math.random() * pool.length)];
+      }
 
       const mode = state.mode === "surprise"
         ? ["flashcard", "mc", "scenario"][Math.floor(Math.random() * 3)]
@@ -507,6 +539,7 @@
         case "summary": html = renderSummary(); break;
         case "progress": html = renderProgress(); break;
         case "done": html = renderDone(); break;
+        case "no-weaknesses": html = renderNoWeaknesses(); break;
       }
 
       if (state.showConfirm) {
@@ -563,6 +596,17 @@
 
       const canStart = state.activeDomains.length > 0;
 
+      // Weakness mode info
+      const weakQuestions = getWeakQuestions();
+      const weakDomains = getWeakDomains();
+      let weakInfo = "";
+      if (weakQuestions.length > 0) {
+        const domainNames = weakDomains.slice(0, 3).map(d => DOMAIN_LABELS[d]).join(", ");
+        weakInfo = `<div style="font-size:0.8rem;color:var(--text-light);text-align:center;margin-bottom:16px">
+          ${weakQuestions.length} question${weakQuestions.length === 1 ? "" : "s"} to review${domainNames ? " — weakest: " + domainNames : ""}
+        </div>`;
+      }
+
       return `<div class="screen">
         <div class="header">
           <h1>NBCT Study Tool</h1>
@@ -576,6 +620,7 @@
         <div class="mode-grid" ${canStart ? "" : 'style="opacity:0.5;pointer-events:none"'}>
           ${modeButtons}
         </div>
+        ${weakInfo}
         <div class="footer-links">
           <a data-action="show-progress">View Progress</a>
         </div>
@@ -815,6 +860,25 @@
       </div>`;
     }
 
+    function renderNoWeaknesses() {
+      const progress = loadProgress();
+      const attempted = Object.keys(progress.questions).length;
+      const total = questionBank ? questionBank.length : 0;
+      const unattempted = total - attempted;
+      let msg = "You're scoring 70%+ on everything you've attempted.";
+      if (unattempted > 0) {
+        msg += ` Try more questions first — ${unattempted} still unattempted.`;
+      }
+      return `<div class="screen">
+        <div class="card" style="text-align:center;padding:32px">
+          <p style="font-size:1.5rem;margin-bottom:12px">\u2B50</p>
+          <h3>No Weak Spots!</h3>
+          <p style="color:var(--text-light);margin:12px 0">${msg}</p>
+          <button class="btn btn-primary" data-action="back-to-menu">Back to Menu</button>
+        </div>
+      </div>`;
+    }
+
     function renderDone() {
       return `<div class="screen">
         <div class="card" style="text-align:center;padding:32px">
@@ -864,7 +928,13 @@
         }
 
         case "start-mode": {
-          state.mode = target.dataset.mode;
+          const selectedMode = target.dataset.mode;
+          if (selectedMode === "weakness" && getWeakQuestions().length === 0) {
+            state.screen = "no-weaknesses";
+            render();
+            break;
+          }
+          state.mode = selectedMode;
           state.itemsThisBatch = 0;
           state.itemsThisSession = 0;
           state.tipCounter = 0;
