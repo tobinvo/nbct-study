@@ -139,6 +139,19 @@
     .footer-links a { font-size: 0.85rem; color: var(--text-light); cursor: pointer; text-decoration: none; padding: 8px 0; touch-action: manipulation; }
     .footer-links a:hover { color: var(--primary); }
 
+    /* Version link */
+    .version-link { font-size: 0.75rem; color: var(--text-light); cursor: pointer; text-align: center; margin-top: 24px; opacity: 0.6; }
+    .version-link:hover { opacity: 1; color: var(--primary); }
+
+    /* Changelog modal */
+    .changelog-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.7); z-index: 100; display: flex; align-items: center; justify-content: center; animation: fadeIn 0.2s ease; }
+    .changelog-modal { background: var(--card-bg); border: 1px solid var(--border); border-radius: var(--radius); max-width: 500px; width: 90%; max-height: 80vh; overflow-y: auto; padding: 24px; }
+    .changelog-modal h2 { margin-bottom: 16px; font-size: 1.2rem; }
+    .changelog-modal h3 { font-size: 0.95rem; color: var(--primary); margin-top: 16px; margin-bottom: 4px; }
+    .changelog-modal ul { padding-left: 20px; margin-bottom: 8px; }
+    .changelog-modal li { font-size: 0.85rem; color: var(--text-light); margin-bottom: 4px; }
+    .changelog-modal .close-btn { margin-top: 16px; text-align: center; }
+
     /* Session top bar */
     .session-bar {
       display: flex; align-items: center; justify-content: space-between;
@@ -313,6 +326,16 @@
       weakness: { icon: "\uD83C\uDFAF", label: "Weaknesses", desc: "Focus on what you've missed" }
     };
 
+    const APP_VERSION = "0.7.0";
+    const CHANGELOG = [
+      { version: "0.7.0", changes: ["Added 6 official NBCT sample questions", "Improved distractor quality", "Removed Epstein framework dependency"] },
+      { version: "0.6.0", changes: ["Weakness-focused study mode (filters to <70% accuracy)", "Shows weak question count and weakest domains on menu"] },
+      { version: "0.5.0", changes: ["Mobile-optimized layout for phone study sessions"] },
+      { version: "0.4.0", changes: ["Audited and fixed all 79 MC questions for accuracy", "Rewrote all distractors for consistent quality", "Randomized answer positions"] },
+      { version: "0.3.0", changes: ["Dark mode UI", "Richer answer tracking", "Flag-for-review feature", "file:// protocol support"] },
+      { version: "0.1.0", changes: ["Initial build: question bank, flashcards, MC, scenarios", "Batch pacing with check-ins", "Test-taking tips"] }
+    ];
+
     let questionBank = null;
     let tips = [];
 
@@ -337,7 +360,8 @@
       sessionWrong: 0,
       showConfirm: false,
       pendingAction: null,
-      seenThisSession: []
+      seenThisSession: [],
+      showChangelog: false
     };
 
     function randomBatchSize() { return Math.random() < 0.5 ? 2 : 3; }
@@ -545,6 +569,9 @@
       if (state.showConfirm) {
         html += renderConfirm();
       }
+      if (state.showChangelog) {
+        html += renderChangelog();
+      }
 
       app.innerHTML = html;
 
@@ -624,6 +651,7 @@
         <div class="footer-links">
           <a data-action="show-progress">View Progress</a>
         </div>
+        <div class="version-link" data-action="show-changelog">v${APP_VERSION}</div>
       </div>`;
     }
 
@@ -678,7 +706,36 @@
       }`;
     }
 
+    function shuffleChoices(q) {
+      // Shuffle MC choices on first render (before submission) so answer positions vary each time
+      if (!q._shuffled) {
+        const labels = q.choices.map(c => c.label);
+        const texts = q.choices.map(c => ({ ...c }));
+        // Fisher-Yates shuffle
+        for (let i = texts.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [texts[i], texts[j]] = [texts[j], texts[i]];
+        }
+        // Reassign labels A/B/C/D to shuffled positions, remap answer + explanations
+        const newExplanations = {};
+        let newAnswer = q.answer;
+        texts.forEach((orig, idx) => {
+          const newLabel = labels[idx];
+          if (orig.label === q.answer) newAnswer = newLabel;
+          if (q.explanations && q.explanations[orig.label]) {
+            newExplanations[newLabel] = q.explanations[orig.label];
+          }
+          orig.label = newLabel;
+        });
+        q.choices = texts;
+        q.answer = newAnswer;
+        q.explanations = newExplanations;
+        q._shuffled = true;
+      }
+    }
+
     function renderMC(q) {
+      shuffleChoices(q);
       const options = q.choices.map(c => {
         let cls = "mc-option";
         let explCls = "mc-explanation";
@@ -891,6 +948,20 @@
       </div>`;
     }
 
+    function renderChangelog() {
+      const entries = CHANGELOG.map(e => `
+        <h3>v${e.version}</h3>
+        <ul>${e.changes.map(c => `<li>${c}</li>`).join("")}</ul>
+      `).join("");
+      return `<div class="changelog-overlay" data-action="close-changelog">
+        <div class="changelog-modal" onclick="event.stopPropagation()">
+          <h2>Changelog</h2>
+          ${entries}
+          <div class="close-btn"><button class="btn btn-outline" data-action="close-changelog">Close</button></div>
+        </div>
+      </div>`;
+    }
+
     function renderConfirm() {
       return `<div class="confirm-overlay" data-action="cancel-confirm">
         <div class="confirm-box" onclick="event.stopPropagation()">
@@ -1059,6 +1130,16 @@
           render();
           break;
 
+        case "show-changelog":
+          state.showChangelog = true;
+          render();
+          break;
+
+        case "close-changelog":
+          state.showChangelog = false;
+          render();
+          break;
+
         case "flag-question":
           flagQuestion(target.dataset.qid);
           render();
@@ -1094,6 +1175,7 @@
         render();
         return;
       }
+      q._shuffled = false; // re-shuffle choices each time question appears
       state.currentQuestion = q;
       state.flashcardFlipped = false;
       state.mcSelected = null;

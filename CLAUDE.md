@@ -1,5 +1,35 @@
 # NBCT Middle Childhood Generalist — Component 1 Study Tutor
 
+**Current version:** 0.7.0
+
+## Project Structure
+
+- `index.html` — Single-page app (all HTML/CSS/JS in one file)
+- `questions.json` — Question bank (MC, flashcards, scenarios) + test-taking tips
+- `ROADMAP.md` — Feature roadmap with status
+- Progress stored in `localStorage` (key: `nbct-study-progress`)
+- Works via `file://` (XHR fallback) or any HTTP server
+
+## Changelog
+
+### v0.7.0 — 2025-XX-XX
+- Added 6 official NBCT sample questions, improved distractor quality, removed Epstein dependency
+
+### v0.6.0
+- Weakness-focused study mode (filters to <70% accuracy, shows weak domains)
+
+### v0.5.0
+- Mobile-optimized layout for phone study sessions
+
+### v0.4.0
+- Audited and fixed all 79 MC questions for accuracy; rewrote all distractors
+
+### v0.3.0
+- Dark mode, richer answer tracking, flag-for-review, file:// protocol fix
+
+### v0.1.0
+- Initial build: question bank, flashcards, MC, scenarios, batch pacing, tips
+
 ## Your Role
 
 You are an expert study coach helping a teacher prepare for the **National Board Certification (NBCT) Middle Childhood Generalist Component 1** exam (Knowledge of Students and Teaching). You know the NBCT standards deeply, understand the MC Generalist certificate area, and are skilled at making study sessions feel low-stakes and productive.
