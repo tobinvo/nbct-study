@@ -259,7 +259,7 @@
         },
         {
           "label": "B",
-          "text": "Provide the text only in English with extended reading time so students build comprehension through full immersion in academic language"
+          "text": "Have students read the text independently first, then use a structured annotation protocol where they mark unfamiliar words and discuss them after reading"
         },
         {
           "label": "C",
@@ -267,15 +267,15 @@
         },
         {
           "label": "D",
-          "text": "Pair each ELL student with a fluent English reader who can translate difficult passages and explain key concepts during reading"
+          "text": "Provide audio recordings of the text along with a bilingual glossary so students can listen while following along and look up unfamiliar terms"
         }
       ],
       "answer": "A",
       "explanations": {
         "A": "This approach layers multiple evidence-based strategies: pre-teaching vocabulary reduces linguistic barriers, graphic organizers make text structure visible, and translanguaging (using home language for discussion) leverages students' full linguistic resources to build conceptual understanding before producing English output.",
-        "B": "Immersion without scaffolding does not account for the linguistic demands of complex informational text. Extended time alone does not build the skills or background knowledge needed to access the content.",
+        "B": "Having intermediate ELLs read complex informational text independently before addressing vocabulary places the language barrier at the point of first encounter, when comprehension support is most needed. Annotation after reading cannot recover understanding that was lost during initial reading.",
         "C": "Removing academic vocabulary denies students access to the language they need for academic success. Scaffolding access to complex text is preferable to replacing it with simpler material.",
-        "D": "While peer support can be valuable, relying on a peer to translate bypasses the ELL student's own meaning-making process and places an unfair instructional burden on the partner."
+        "D": "Audio support and a bilingual glossary are useful tools, but they address only the decoding and vocabulary dimensions. Without pre-teaching key concepts, graphic organizers for text structure, and opportunities for collaborative discussion, students still lack the comprehension scaffolding needed for complex informational text."
       }
     },
     {
@@ -359,11 +359,11 @@
       "choices": [
         {
           "label": "A",
-          "text": "Reteach the opinion writing unit from the beginning so students can reinforce all the component skills in sequence"
+          "text": "Conduct individual writing conferences to identify each student's specific reasoning gap, then assign differentiated practice based on their needs"
         },
         {
           "label": "B",
-          "text": "Move on to the next writing unit and revisit evidence skills later when students encounter argumentation in a new context"
+          "text": "Have students read and annotate opinion articles that use strong evidence, then discuss what makes the evidence effective before revising their own pieces"
         },
         {
           "label": "C",
@@ -376,8 +376,8 @@
       ],
       "answer": "C",
       "explanations": {
-        "A": "Reteaching the entire unit is inefficient because students have already demonstrated mastery of stating a claim. Instruction should target the specific area of need rather than revisiting skills already learned.",
-        "B": "Moving on ignores the gap in student learning. Stating a claim without supporting it with evidence does not meet the writing standard, and hoping it resolves later is not data-driven instruction.",
+        "A": "Individual conferences are a valuable formative assessment tool, but with most students sharing the same skill gap, one-on-one conferring is less efficient than a targeted whole-class or small-group mini-lesson that addresses the common need directly.",
+        "B": "Analyzing mentor texts is a useful strategy, but reading about effective evidence is a step removed from the specific skill gap. Students need explicit instruction in how to select and elaborate on their own reasons — not just exposure to models — before returning to their drafts.",
         "C": "This response demonstrates data-driven instruction: the teacher analyzes student work, identifies the specific skill gap (elaborating reasons with evidence), and designs targeted instruction. Mentor texts provide models, and structured templates scaffold the organizational challenge while students develop the skill.",
         "D": "Independent reading of opinion articles provides exposure to models but does not explicitly teach students how to select and elaborate on their own evidence. Without direct instruction in the skill gap, students are unlikely to transfer what they see in published writing."
       }
@@ -498,11 +498,11 @@
       "choices": [
         {
           "label": "A",
-          "text": "Increase the percentage of informational text in the curriculum immediately and reduce literary text instruction to compensate"
+          "text": "Have each teacher independently increase the amount of informational text in their own classroom and report back on student progress at the next team meeting"
         },
         {
           "label": "B",
-          "text": "Research and purchase a highly-rated informational text program, then present it to the team as a ready-made solution"
+          "text": "Bring research articles on informational text instruction to the team and propose adopting specific strategies that align with the data patterns"
         },
         {
           "label": "C",
@@ -515,8 +515,8 @@
       ],
       "answer": "D",
       "explanations": {
-        "A": "Increasing volume without analyzing which specific skills students lack may not address the root cause. Reducing literary instruction also creates a new gap rather than solving the existing one.",
-        "B": "Adopting a program without first analyzing the specific skill gaps or involving the team bypasses professional collaboration and may not address the actual problem areas.",
+        "A": "Having teachers work independently skips the collaborative analysis that should precede action. Without first identifying which specific informational text skills are weak, simply adding more text may not address the root cause, and individual teachers may try inconsistent approaches.",
+        "B": "Sharing research shows initiative, but proposing strategies before the team has analyzed the specific skill gaps puts solutions ahead of diagnosis. The team should first examine what exactly students struggle with in informational text — structure, vocabulary, inference, evidence use — before selecting strategies.",
         "C": "Requesting PD is a reasonable step but positions the teacher as waiting for outside support rather than leading the inquiry. Accomplished teachers take initiative and drive collaborative problem-solving.",
         "D": "This response models both responsiveness to change (Standard VIII) and reflective practice (Standard IX): the teacher uses data to identify a problem, leads collaborative inquiry into root causes, examines instructional practice, and develops a monitored improvement plan. This is the cycle of accomplished teaching."
       }
@@ -990,7 +990,7 @@
       "choices": [
         {
           "label": "A",
-          "text": "Replace word problems with computation-only tasks so language demands do not interfere with demonstrating mathematical ability."
+          "text": "Rewrite word problems using simplified English and shorter sentences so ELL students can read and solve them independently."
         },
         {
           "label": "B",
@@ -998,7 +998,7 @@
         },
         {
           "label": "C",
-          "text": "Reduce the overall pacing of the class to give ELL students more processing time for each word problem."
+          "text": "Pre-teach the mathematical vocabulary and procedures for each problem type so students can apply the correct operation when they encounter key terms."
         },
         {
           "label": "D",
@@ -1007,9 +1007,9 @@
       ],
       "answer": "D",
       "explanations": {
-        "A": "Removing word problems lowers expectations and denies access to grade-level problem-solving standards. The barrier is linguistic, not mathematical.",
+        "A": "Simplifying the language of word problems may seem helpful, but it reduces students' exposure to the academic language they need to develop. The goal is to scaffold access to grade-level language, not to lower the linguistic demands permanently.",
         "B": "Home language discussion can be beneficial, but pairing ELL students only with each other limits their interaction with English-proficient peers and provides no instructional scaffolding for the language of the problems.",
-        "C": "Adjusting pacing for the entire class is unnecessary and limits other students. Targeted scaffolding supports ELL students without reducing content coverage for everyone.",
+        "C": "Pre-teaching vocabulary is a component of good ELL instruction, but a keyword approach (e.g., 'total means add') is unreliable and does not build genuine comprehension of problem situations. Students need to understand the scenario, not just match terms to operations.",
         "D": "Multiple entry points — visuals, kinesthetic experiences, language scaffolds, and contextualized vocabulary — maintain rigor while making content comprehensible."
       }
     },
@@ -1496,7 +1496,7 @@
         },
         {
           "label": "C",
-          "text": "Set the probe results aside and teach the unit as planned, addressing misconceptions only if they resurface during instruction."
+          "text": "Show students a video demonstrating the particle arrangement in solids, liquids, and gases, then revisit the sand question with the new visual model."
         },
         {
           "label": "D",
@@ -1507,7 +1507,7 @@
       "explanations": {
         "A": "Front-loading definitions is a transmissive approach that does not help students confront and revise their misconception through experience. Students may memorize the definition without changing their mental model.",
         "B": "A class debate could surface ideas, but guiding students toward the textbook definition still relies on teacher authority rather than evidence. Without hands-on investigation, students may accept the definition without genuine conceptual change.",
-        "C": "Ignoring formative assessment data wastes a valuable opportunity to design targeted instruction. The probe revealed a specific misconception that should inform how the unit is taught, not be set aside.",
+        "C": "A video showing particle arrangement provides accurate information, but students receive the explanation passively rather than confronting their misconception through direct observation and evidence. The 'sand pours like a liquid' belief is resistant to correction by visual models alone — students need hands-on investigation to revise their mental model.",
         "D": "Correct. This response uses the probe data to design a targeted investigation. By examining individual grains, students can observe that each grain has a fixed shape and volume (properties of a solid), even though the collection can be poured. This addresses the specific misconception revealed by the probe."
       }
     },
@@ -2678,7 +2678,7 @@
         },
         {
           "label": "C",
-          "text": "Showing signs of a possible processing deficit that warrants a referral for special education evaluation."
+          "text": "Demonstrating that the task is above their ability level, which means the teacher should lower the complexity until the student can succeed alone."
         },
         {
           "label": "D",
@@ -2689,7 +2689,7 @@
       "explanations": {
         "A": "The student can do the task with support, which means the task is appropriate — not too difficult. Giving simpler tasks would keep the student below their ZPD and limit growth.",
         "B": "Collaborative success is not learned helplessness. In Vygotsky's framework, working with a more knowledgeable other is the expected pathway to independent mastery, not a sign of dependency.",
-        "C": "Needing support for complex tasks is normal development, not evidence of a disability. A learning disability evaluation would only be warranted if the student showed persistent difficulties despite appropriate instruction and intervention.",
+        "C": "The student can succeed with support, which in Vygotsky's framework means the task is at exactly the right level. Lowering complexity would place the student below their ZPD, where no new learning occurs.",
         "D": "Correct. The ZPD is the space between what a learner can do independently and what they can do with support. The student succeeds with a partner but not alone, indicating the task is within the ZPD. The teacher should provide scaffolding to help the student gradually achieve independence."
       }
     },
@@ -2705,27 +2705,27 @@
       "choices": [
         {
           "label": "A",
-          "text": "Identity vs. Role Confusion"
+          "text": "Identity vs. Role Confusion — the student is beginning to question who she is and where she fits in socially and academically"
         },
         {
           "label": "B",
-          "text": "Industry vs. Inferiority"
+          "text": "Industry vs. Inferiority — the student is developing feelings of inadequacy after experiencing academic difficulty"
         },
         {
           "label": "C",
-          "text": "Trust vs. Mistrust"
+          "text": "Autonomy vs. Shame and Doubt — the student feels shame about her performance and doubts her ability to act independently"
         },
         {
           "label": "D",
-          "text": "Initiative vs. Guilt"
+          "text": "Initiative vs. Guilt — the student feels guilty about not meeting expectations and has stopped taking initiative in class"
         }
       ],
       "answer": "B",
       "explanations": {
-        "A": "Identity vs. Role Confusion is the adolescent stage (ages 12–18) involving identity formation. While approaching this stage, a 5th-grader's withdrawal from academics aligns more with Industry vs. Inferiority.",
+        "A": "Identity vs. Role Confusion is the adolescent stage (ages 12–18) focused on forming a coherent sense of self across social roles. While a 5th-grader is approaching this stage, the specific trigger here — academic failure leading to 'I'm stupid' — points to a crisis of competence, not identity.",
         "B": "Correct. Industry vs. Inferiority (ages 6–12) involves developing a sense of competence through mastery of skills. When students experience repeated failure or perceive their efforts as inadequate, they develop feelings of inferiority ('I'm stupid'). The teacher should provide opportunities for genuine success, give specific feedback, and help rebuild the student's sense of competence.",
-        "C": "Trust vs. Mistrust is the first stage (infancy) and involves developing trust in caregivers. It is not relevant to a 5th-grader's academic self-concept.",
-        "D": "Initiative vs. Guilt is the preschool stage (ages 3–6) involving exploring independence. The student's issue is about academic competence, not initiative."
+        "C": "Autonomy vs. Shame and Doubt (toddler stage) involves developing a sense of personal control over physical skills and independence. While the language of 'shame and doubt' may seem to fit, this crisis applies to toddlers gaining basic self-sufficiency, not to school-age children struggling with academic competence.",
+        "D": "Initiative vs. Guilt (ages 3–6) involves asserting power and control through directing play and social interaction. While the student has stopped participating, the root cause is a crisis of competence — feeling incapable — not a crisis of initiative or guilt about asserting herself."
       }
     },
     {
@@ -2949,11 +2949,11 @@
       "choices": [
         {
           "label": "A",
-          "text": "Begin the lesson immediately with high-energy instruction to redirect the students' restless energy into academic engagement."
+          "text": "Begin the lesson immediately with an engaging problem or challenge to redirect the students' restless energy into academic focus."
         },
         {
           "label": "B",
-          "text": "Give a brief formative assessment quiz to quickly focus students' attention on the upcoming math content."
+          "text": "Have students do a quick physical movement activity like stretching or jumping jacks to burn off energy before transitioning to the math lesson."
         },
         {
           "label": "C",
@@ -2966,8 +2966,8 @@
       ],
       "answer": "C",
       "explanations": {
-        "A": "Jumping into instruction without addressing the class's emotional state ignores that students cannot focus when dysregulated. High-energy instruction may actually amplify the restlessness rather than channel it.",
-        "B": "A quiz increases anxiety and uses assessment punitively. It does not teach self-regulation or address the underlying restlessness — it forces compliance through external pressure.",
+        "A": "Jumping into academic content without addressing the class's emotional state ignores that students cannot focus when dysregulated. Even an engaging problem requires cognitive readiness that restless students may not have yet.",
+        "B": "Physical movement can help release energy, but it does not teach self-regulation skills. A movement break addresses the physical restlessness but does not help students learn to transition their own mental state — a transferable SEL skill they can use independently.",
         "C": "Correct. A brief mindfulness or breathing exercise helps students practice self-management (a core SEL competency) and transition from the high energy of lunch to focused attention. Following with a low-demand warm-up provides a cognitive on-ramp that teaches transferable self-regulation skills.",
         "D": "Unstructured free time may increase rather than decrease restlessness. Effective transitions require teacher-guided regulation activities, not simply waiting for students to calm themselves."
       }
@@ -3508,15 +3508,15 @@
       "choices": [
         {
           "label": "A",
-          "text": "Implement a standardized behavior rubric with stricter, uniform consequences for all students to ensure consistency across the board."
+          "text": "Implement a standardized behavior rubric with clear, consistent criteria for referrals so that all students are measured against the same objective benchmarks."
         },
         {
           "label": "B",
-          "text": "Request that a colleague observe her classroom interactions to provide an objective perspective on whether the disparity is real."
+          "text": "Request that a colleague observe her classroom interactions to provide an outside perspective on whether differential treatment is occurring."
         },
         {
           "label": "C",
-          "text": "Reduce the number of referrals overall by raising the threshold for what behaviors warrant an office referral for all students."
+          "text": "Attend professional development on culturally responsive classroom management to learn alternative strategies for addressing student behavior."
         },
         {
           "label": "D",
@@ -3525,9 +3525,9 @@
       ],
       "answer": "D",
       "explanations": {
-        "A": "Stricter consequences for all students do not address the root cause of the disparity. If bias is driving differential perception of the same behavior, a uniform rubric may still be applied inequitably.",
-        "B": "Peer observation can be a useful follow-up step, but the first step should be the teacher's own examination of her data and biases. Outsourcing the analysis before engaging in self-reflection avoids personal accountability.",
-        "C": "Raising the threshold reduces referrals overall but does not address why Black male students receive disproportionate referrals. The disparity would likely persist at the new threshold.",
+        "A": "A standardized rubric sounds objective, but if the teacher perceives the same behavior differently based on race — interpreting a Black student's talking as 'defiance' but a white student's as 'enthusiasm' — even a clear rubric will be applied inequitably. The tool does not address the perception driving the disparity.",
+        "B": "Peer observation can be a valuable follow-up step, but beginning with an outside observer before engaging in self-reflection positions the problem as something to verify rather than something to own. The data already confirms the disparity — the first step is the teacher's own examination of her patterns.",
+        "C": "Professional development on culturally responsive management is a worthwhile long-term investment, but it addresses the issue through general training rather than the specific self-examination this data demands. The teacher needs to analyze her own patterns first, not learn strategies in the abstract.",
         "D": "Correct. Disproportionate discipline data is a red flag for implicit bias. The teacher should examine whether she perceives the same behavior differently based on race. This requires honest self-reflection, data analysis, and a commitment to changing patterns."
       }
     },
@@ -3756,7 +3756,7 @@
         },
         {
           "label": "B",
-          "text": "The teacher should remove real-world contexts entirely and use abstract numbers so no cultural group feels excluded from the content."
+          "text": "The teacher should offer parallel problem sets with different contexts (sports, cooking, shopping) so students can select the version most familiar to them."
         },
         {
           "label": "C",
@@ -3770,7 +3770,7 @@
       "answer": "D",
       "explanations": {
         "A": "While mathematical concepts are universal, the contexts in which they are presented significantly affect access and engagement. Students unfamiliar with American sports may be excluded from the learning opportunity.",
-        "B": "Removing all contexts makes math less engaging and less meaningful for everyone. The solution is to diversify contexts, not eliminate them.",
+        "B": "Offering parallel versions is better than a single context, but it still separates students by familiarity rather than exposing all students to diverse perspectives. UDL calls for designing the core lesson with varied contexts that all students encounter, building shared understanding across cultural experiences.",
         "C": "Student choice is one UDL strategy, but allowing students to skip problems does not address the underlying issue of culturally limited contexts. All students should have access to meaningful examples.",
         "D": "Correct. UDL's principle of Multiple Means of Engagement calls for options that connect to students' interests, cultures, and experiences. Using diverse contexts ensures all students can access mathematical content through relevant examples."
       }
@@ -4048,8 +4048,8 @@
       "standards": [
         "VI"
       ],
-      "front": "What are Epstein's Six Types of Family Involvement?",
-      "back": "(1) Parenting — helping families establish home environments that support learning (workshops on child development, nutrition, homework routines); (2) Communicating — designing effective school-to-home and home-to-school communication (conferences, newsletters, report cards, translated materials); (3) Volunteering — recruiting and organizing parent help and support (in classrooms, at events, from home); (4) Learning at Home — providing information and ideas to families about helping with homework and curriculum-related activities; (5) Decision Making — including parents in school governance and advocacy (PTA, school improvement teams, committees); (6) Collaborating with the Community — identifying and integrating community resources and services to strengthen schools and families (partnerships with businesses, libraries, health services)."
+      "front": "Key Dimensions of Family-School Partnerships",
+      "back": "Accomplished teachers build partnerships across multiple dimensions: (1) Communication — designing two-way, culturally responsive communication that reaches all families through varied channels and languages; (2) Supporting learning at home — providing families with concrete ideas for reinforcing academic skills and fostering curiosity; (3) Family voice in decision-making — including families in school governance, goal-setting, and advocacy; (4) Community connections — partnering with local organizations, businesses, and services to address student needs beyond the classroom; (5) Welcoming school environment — creating physical and relational spaces where all families feel respected and valued; (6) Volunteering and participation — offering flexible, meaningful ways for families to contribute based on their strengths and availability."
     },
     {
       "id": "fc-fam-002",
@@ -4206,31 +4206,31 @@
       "standards": [
         "VI"
       ],
-      "stem": "A 5th-grade teacher sends home a monthly newsletter in English detailing classroom activities and upcoming events. Despite this, attendance at school events is low among families who speak Spanish and Vietnamese at home. According to Epstein's framework, what type of involvement is the teacher missing?",
+      "stem": "A 5th-grade teacher sends home a monthly newsletter in English detailing classroom activities and upcoming events. Despite this effort, attendance at school events remains low among families who speak Spanish and Vietnamese at home. Which action would BEST address this gap?",
       "choices": [
         {
           "label": "A",
-          "text": "Volunteering"
+          "text": "Translate the newsletter into Spanish and Vietnamese and continue sending it home monthly with students"
         },
         {
           "label": "B",
-          "text": "Decision Making"
+          "text": "Ask bilingual staff members to make personal phone calls to families inviting them to events and asking what would help them participate"
         },
         {
           "label": "C",
-          "text": "Learning at Home"
+          "text": "Schedule a meeting with the families to explain the importance of attending school events for their children's success"
         },
         {
           "label": "D",
-          "text": "Communicating"
+          "text": "Add a translated section to the school website with event information and directions for how to RSVP"
         }
       ],
-      "answer": "D",
+      "answer": "B",
       "explanations": {
-        "A": "Volunteering involves recruiting parent help. While low event attendance is a symptom, the root cause is ineffective communication, not a lack of volunteer opportunities.",
-        "B": "Decision Making involves including parents in governance. While important, it is not the primary issue when families are not receiving basic information about school events.",
-        "C": "Learning at Home involves providing ideas for families to support learning at home. The issue here is that communication is not reaching all families, not that the teacher lacks home learning suggestions.",
-        "D": "Correct. Epstein's Communicating type requires designing effective school-to-home and home-to-school communication that reaches ALL families. An English-only newsletter does not effectively communicate with Spanish- and Vietnamese-speaking families. The teacher needs translated materials, multiple channels, and two-way communication."
+        "A": "Translation is a necessary step, but simply translating a one-way document does not address the deeper barrier. The teacher still lacks two-way communication and has not asked families what would make participation possible.",
+        "B": "Correct. Personal outreach through bilingual staff builds relationships, communicates in families' home languages, and — critically — asks families what barriers they face. This two-way, culturally responsive approach addresses both the language gap and the relational gap.",
+        "C": "This assumes families do not understand the importance of events, which is a deficit-based assumption. The barrier is likely logistical or linguistic, not motivational. Lecturing families about importance can feel condescending and damage trust.",
+        "D": "Adding translated web content is a positive step, but it assumes families regularly access the school website. It also remains one-way communication and does not build the personal relationships that drive engagement."
       }
     },
     {
@@ -4349,15 +4349,15 @@
       "choices": [
         {
           "label": "A",
-          "text": "In many immigrant cultures, families defer to the school's authority and view visiting the school as unnecessary unless there is a problem."
+          "text": "In many immigrant cultures, families view the school as the authority on education and show respect by not interfering — the absence is a cultural norm, not avoidance."
         },
         {
           "label": "B",
-          "text": "The school needs to increase the number and variety of family engagement events to give immigrant families more reasons to visit."
+          "text": "The school needs to build relationships through personal invitations and cultural brokers who can bridge trust between immigrant families and school staff."
         },
         {
           "label": "C",
-          "text": "Immigrant families may prefer phone or text communication and feel that in-person visits are less important than other forms of involvement."
+          "text": "Many immigrant families may have had negative experiences with institutions in their home countries, making them hesitant to interact with any official building."
         },
         {
           "label": "D",
@@ -4366,9 +4366,9 @@
       ],
       "answer": "D",
       "explanations": {
-        "A": "While cultural norms around school engagement vary, the question specifically describes environmental barriers (signage, ID, locked doors). Attributing avoidance to cultural preferences ignores the concrete obstacles described in the scenario.",
-        "B": "More events will not increase attendance if the school environment itself feels unwelcoming or threatening. The environment must change before events can succeed.",
-        "C": "While some families may prefer other communication modes, the question specifically asks why they avoid coming to the school building. The physical environment is the primary barrier described.",
+        "A": "While cultural norms around school engagement do vary, attributing the avoidance to cultural deference overlooks the specific environmental barriers described in the scenario. The question asks about English-only signage, ID requirements, and a locked entry — these are concrete obstacles, not cultural preferences.",
+        "B": "Personal relationships and cultural brokers are valuable strategies, but they address outreach rather than the root cause. The scenario describes specific features of the school environment that signal exclusion — those barriers must be addressed before relationship-building can succeed.",
+        "C": "Past negative experiences with institutions may be a contributing factor for some families, but this explanation is speculative and does not account for the specific barriers described. The scenario points to concrete environmental features the school controls and can change.",
         "D": "Correct. For immigrant families — especially those with undocumented members — English-only signage signals exclusion, government ID requirements can be terrifying, and a locked door adds to the sense of being unwelcome. The school should add multilingual signage, reconsider ID policies, and train staff in welcoming practices."
       }
     },
@@ -4448,31 +4448,31 @@
       "standards": [
         "VI"
       ],
-      "stem": "A 7th-grade teacher partners with a local community health center to provide free vision screenings for students during school hours. Which of Epstein's types of involvement does this represent?",
+      "stem": "A 7th-grade teacher notices that several students squint at the board and hold books close to their faces, but their families have not pursued vision care. The teacher partners with a local community health center to provide free vision screenings during school hours. What is the BEST rationale for this approach?",
       "choices": [
         {
           "label": "A",
-          "text": "Parenting"
+          "text": "It demonstrates to families that the school takes student health seriously, which builds trust and increases the likelihood of future family engagement"
         },
         {
           "label": "B",
-          "text": "Collaborating with the Community"
+          "text": "It removes a barrier to learning by connecting students to a community resource that addresses an unmet health need affecting academic performance"
         },
         {
           "label": "C",
-          "text": "Volunteering"
+          "text": "It fulfills the teacher's obligation to report suspected neglect by documenting which families have not provided necessary health care"
         },
         {
           "label": "D",
-          "text": "Learning at Home"
+          "text": "It allows the teacher to collect health data that can inform instructional decisions such as seating arrangements and font sizes on materials"
         }
       ],
       "answer": "B",
       "explanations": {
-        "A": "Parenting involves helping families support children's development at home. While vision health affects learning, the partnership with the health center is a community collaboration, not a parenting support activity.",
-        "B": "Correct. Collaborating with the Community (Epstein's Type 6) involves identifying and integrating community resources and services to strengthen school programs and student learning. Partnering with a health center for vision screenings brings community resources into the school to address a barrier to learning.",
-        "C": "Volunteering involves recruiting and organizing parent help in classrooms and at events. The health center partnership is a professional community collaboration, not a volunteer activity.",
-        "D": "Learning at Home involves providing information for families about supporting academic learning. Vision screenings are a health service, not a home learning activity."
+        "A": "Building trust is a positive secondary outcome, but the primary rationale is addressing a barrier to learning. The best answer focuses on the direct connection between the health need, the community resource, and student learning.",
+        "B": "Correct. An accomplished teacher identifies barriers to learning and leverages community partnerships to address them. The vision screenings directly connect an unmet health need to a community resource, removing a barrier that affects students' ability to access instruction.",
+        "C": "Not pursuing vision care is not neglect. Many families face financial, insurance, or access barriers. The teacher's response — partnering with a free resource — is asset-based and supportive, not punitive or surveillance-oriented.",
+        "D": "While seating and font adjustments are practical accommodations, they are not the primary rationale for the partnership. The goal is addressing the root health need through community resources, not gathering data for classroom workarounds."
       }
     },
     {
@@ -4770,6 +4770,216 @@
         "Ask underrepresented families what engagement looks like to them rather than assuming one model fits all",
         "Partner with cultural brokers and community organizations to bridge cultural and linguistic gaps"
       ]
+    },
+    {
+      "id": "mc-nbct-001",
+      "type": "mc",
+      "domain": "ela",
+      "standards": [
+        "IV"
+      ],
+      "source": "nbct-official",
+      "stem": "A second-grade teacher is developing a unit on biography. The teacher adds to the class library numerous biographies of individuals who made significant contributions to science, exploration, literature and the arts, business, and athletics. Which of the following statements provides the best rationale for the teacher’s approach to selecting biographies for the unit?",
+      "choices": [
+        {
+          "label": "A",
+          "text": "Second-grade students have limited knowledge about the achievements of notable people, and the teacher’s approach promotes an expansion of that knowledge."
+        },
+        {
+          "label": "B",
+          "text": "Second-grade students are curious about people, and the teacher’s approach ensures the availability of multiple texts targeting student interests."
+        },
+        {
+          "label": "C",
+          "text": "Second-grade students are beginning to understand the concept of preparing for a future career, and the teacher’s approach will promote their understanding."
+        },
+        {
+          "label": "D",
+          "text": "Second-grade students rely on adults to provide appropriately leveled reading texts, and the teacher’s approach confirms that texts were collected with students’ needs in mind."
+        }
+      ],
+      "answer": "A",
+      "explanations": {
+        "A": "Correct. The best rationale is that biographies across multiple fields expand students’ knowledge of notable achievements. This aligns with the teacher’s role in broadening students’ awareness through text selection — a core Standard IV responsibility.",
+        "B": "While second graders are curious, this answer focuses on interest-based motivation rather than the pedagogical rationale for breadth of content. The teacher’s selection across science, exploration, arts, business, and athletics is about knowledge expansion, not just matching existing interests.",
+        "C": "Career preparation is not a developmentally appropriate rationale for second-grade biography study. Seven- and eight-year-olds are not yet focused on future careers; the value of diverse biographies lies in expanding knowledge, not career awareness.",
+        "D": "This answer shifts the focus to text leveling and adult guidance, which is not the rationale the question asks about. The question targets why the teacher selected biographies across diverse fields, not whether the texts are appropriately leveled."
+      }
+    },
+    {
+      "id": "mc-nbct-002",
+      "type": "mc",
+      "domain": "social-studies",
+      "standards": [
+        "IV"
+      ],
+      "source": "nbct-official",
+      "stem": "A third-grade teacher is planning a geography unit on the concepts of location and place. Which of the following approaches would be the most effective way to ignite the students’ interest in the topic?",
+      "choices": [
+        {
+          "label": "A",
+          "text": "having students write a report about a country they would like to visit someday"
+        },
+        {
+          "label": "B",
+          "text": "reading aloud Around the World in Eighty Days in class and having students track the main character’s progress on a map"
+        },
+        {
+          "label": "C",
+          "text": "having students build a large three-dimensional map of their community with papier-mâché and cardboard boxes"
+        },
+        {
+          "label": "D",
+          "text": "installing a computer game on the classroom computer that times students on how quickly they can locate a specific country"
+        }
+      ],
+      "answer": "C",
+      "explanations": {
+        "A": "Writing a report is a valid literacy activity but is too abstract and product-focused for igniting interest in geography concepts. Third graders are more engaged through hands-on, concrete experiences than through written assignments.",
+        "B": "Reading aloud with map tracking is engaging but positions students as passive observers of someone else’s journey. It does not provide the hands-on, concrete experience that best ignites interest in spatial concepts for third graders.",
+        "C": "Correct. Building a 3D map of their own community is hands-on, concrete, and personally meaningful — three elements that ignite interest in young learners. It connects geography to students’ lived experience and develops spatial reasoning through construction.",
+        "D": "A timed computer game focuses on speed and rote location identification rather than conceptual understanding of place and location. It gamifies geography without deepening understanding."
+      }
+    },
+    {
+      "id": "mc-nbct-003",
+      "type": "mc",
+      "domain": "math",
+      "standards": [
+        "IV"
+      ],
+      "source": "nbct-official",
+      "stem": "A student believes there are exactly two lines of symmetry in a square. Which of the following activities could the teacher use to help the student understand symmetry?",
+      "choices": [
+        {
+          "label": "A",
+          "text": "asking the student to cut a square piece of paper into smaller, congruent squares"
+        },
+        {
+          "label": "B",
+          "text": "asking the student to review a definition of symmetry and write it in his or her own words"
+        },
+        {
+          "label": "C",
+          "text": "asking the student to fold a square piece of paper and mark each line of symmetry the student folds"
+        },
+        {
+          "label": "D",
+          "text": "asking the student to draw half of a shape after being given the other half of the shape and a line of symmetry"
+        }
+      ],
+      "answer": "C",
+      "explanations": {
+        "A": "Cutting a square into smaller congruent squares demonstrates partitioning and congruence, not lines of symmetry. This activity does not help the student discover that a square has four lines of symmetry.",
+        "B": "Reviewing and rewriting a definition is a surface-level verbal activity that does not address the student’s specific misconception. The student needs a concrete, hands-on experience to discover the additional lines of symmetry.",
+        "C": "Correct. Folding a square piece of paper allows the student to physically discover all four lines of symmetry (two diagonal, one vertical, one horizontal) through direct manipulation. This concrete activity directly confronts the misconception that there are only two.",
+        "D": "Drawing the other half of a shape given a line of symmetry practices applying symmetry but only explores one line at a time. It does not help the student discover that a square has more than two lines of symmetry."
+      }
+    },
+    {
+      "id": "mc-nbct-004",
+      "type": "mc",
+      "domain": "science",
+      "standards": [
+        "IV"
+      ],
+      "source": "nbct-official",
+      "stem": "A teacher divides the class into small groups and has each group construct a model of a bridge that spans 30 cm across two desks and can support a mass of 1 kg. Each group uses different materials found in the classroom to construct the model. The teacher is most likely engaging students in this activity to help them:",
+      "choices": [
+        {
+          "label": "A",
+          "text": "develop a working knowledge of the scientific requirements needed to produce safe bridges over canyons."
+        },
+        {
+          "label": "B",
+          "text": "describe the scientific principles used in selecting materials for constructing bridges over rivers."
+        },
+        {
+          "label": "C",
+          "text": "discuss the engineering tools needed to construct different types of bridges."
+        },
+        {
+          "label": "D",
+          "text": "understand the engineering design principles used in constructing sturdy bridges."
+        }
+      ],
+      "answer": "D",
+      "explanations": {
+        "A": "This answer overstates the scope — the classroom activity is about understanding design principles at an introductory level, not developing professional knowledge of bridge safety requirements for real-world canyons.",
+        "B": "While material selection is part of the activity, the primary goal is understanding engineering design principles, not describing scientific principles for real bridge construction. The answer is too narrow and too applied.",
+        "C": "The activity does not focus on discussing engineering tools; students are using classroom materials to build models. The learning target is design principles (constraints, testing, iteration), not tools.",
+        "D": "Correct. The activity — building a bridge to specific constraints (30 cm span, support 1 kg) using varied materials — is a classic engineering design challenge. Students learn about constraints, material properties, structural design, and iterative testing."
+      }
+    },
+    {
+      "id": "mc-nbct-005",
+      "type": "mc",
+      "domain": "social-studies",
+      "standards": [
+        "IV"
+      ],
+      "source": "nbct-official",
+      "stem": "Archaeological expeditions of early Native American sites in the present-day state of Ohio have uncovered copper medallions, grizzly bear teeth, seashell necklaces, and knives carved from obsidian. These artifacts best support the inference that the early peoples of this region:",
+      "choices": [
+        {
+          "label": "A",
+          "text": "migrated along streams and waterways to meet their needs."
+        },
+        {
+          "label": "B",
+          "text": "had resources that differed greatly from those of present times."
+        },
+        {
+          "label": "C",
+          "text": "were nomads who lived a hunter-gatherer lifestyle."
+        },
+        {
+          "label": "D",
+          "text": "relied on trade to obtain materials they wanted."
+        }
+      ],
+      "answer": "D",
+      "explanations": {
+        "A": "Migration along waterways could explain movement but does not explain the presence of materials (seashells, obsidian, grizzly bear teeth) that are not native to Ohio. The key evidence points to trade networks, not migration patterns.",
+        "B": "The artifacts show that early peoples had access to diverse materials, but this answer does not explain HOW they obtained materials not native to Ohio. It describes a surface observation without the analytical inference the question requires.",
+        "C": "While some early peoples were nomadic, a hunter-gatherer lifestyle does not explain the presence of seashells (coastal), obsidian (volcanic regions), and grizzly bear teeth (western regions) in Ohio. The geographic diversity of materials points to trade.",
+        "D": "Correct. Copper, grizzly bear teeth, seashells, and obsidian are not native to Ohio. Their presence at Ohio sites is strong evidence of extensive trade networks connecting early peoples across geographic regions — a key social studies inference skill."
+      }
+    },
+    {
+      "id": "mc-nbct-006",
+      "type": "mc",
+      "domain": "social-studies",
+      "standards": [
+        "IV"
+      ],
+      "source": "nbct-official",
+      "stem": "Which of the following sources can a teacher best use to provide students with an introduction to the purpose of the League of Nations?",
+      "choices": [
+        {
+          "label": "A",
+          "text": "an image of the Big Four leaders at the 1919 Paris Peace Conference"
+        },
+        {
+          "label": "B",
+          "text": "the text of President Woodrow Wilson’s Fourteen Points"
+        },
+        {
+          "label": "C",
+          "text": "a transcript of Henry Cabot Lodge’s 1919 Senate speech about the Treaty of Versailles"
+        },
+        {
+          "label": "D",
+          "text": "the Atlantic Charter that expressed need for the United Nations"
+        }
+      ],
+      "answer": "B",
+      "explanations": {
+        "A": "An image of the Big Four provides context about who was involved in post-WWI negotiations but does not convey the PURPOSE of the League of Nations. Images alone lack the textual content needed to introduce organizational goals.",
+        "B": "Correct. Wilson’s Fourteen Points explicitly articulate the vision for the League of Nations, including its purpose of maintaining peace through collective security. This primary source directly introduces the League’s intended purpose.",
+        "C": "Lodge’s speech critiques the Treaty of Versailles and argues against U.S. participation in the League. While historically important, it presents opposition to the League rather than an introduction to its purpose.",
+        "D": "The Atlantic Charter (1941) relates to the United Nations, not the League of Nations. It is a different era and a different international organization, making it irrelevant to introducing the League’s purpose."
+      }
     }
   ]
 }
